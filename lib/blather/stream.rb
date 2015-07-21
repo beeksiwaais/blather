@@ -112,7 +112,9 @@ module Blather
     # this catches that and returns false prompting for another attempt
     # @private
     def self.connect(host, port, conn, client, jid, pass, connect_timeout, authcid)
-      EM.connect host, port, conn, client, jid, pass, connect_timeout, authcid
+      EM.run {
+        EM.connect host, port, conn, client, jid, pass, connect_timeout, authcid
+      }
     rescue NoConnection
       false
     end
